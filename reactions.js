@@ -26,9 +26,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
     if(index > -1) {
         const guild = reaction.message.guild;
         const member = guild.members.cache.get(user.id);
-        if(index > -1) {
-            member.roles.add(guild.roles.cache.find(role => role.id === ROLE_REACTIONS_ROLEID_LIST[index]));
-        }
+        member.roles.add(guild.roles.cache.find(role => role.id === ROLE_REACTIONS_ROLEID_LIST[index]));
     }
 });
 client.on('messageReactionRemove', (reaction, user) => {
@@ -36,9 +34,7 @@ client.on('messageReactionRemove', (reaction, user) => {
     if(index > -1) {
         const guild = reaction.message.guild;
         const member = guild.members.cache.get(user.id);
-        if(index > -1) {
-            member.roles.remove(guild.roles.cache.find(role => role.id === ROLE_REACTIONS_ROLEID_LIST[index]));
-        }
+        member.roles.remove(guild.roles.cache.find(role => role.id === ROLE_REACTIONS_ROLEID_LIST[index]));
     }
 });
 client.on('message', msg => {
