@@ -5,11 +5,8 @@ How to run:
 sudo apt install nodejs npm
 2. Navigate to the folder that will contain the files.
 cd (path)
-3. Install the required NPM modules
-npm install dotenv
-npm install discord.js
-4. Copy/clone the repo.
-5. Configure the .env file.
+3. Copy/clone the repo.
+4. Configure the .env file.
 Put your token in the TOKEN variable.
 Enter reaction-role functions in the ROLE_REACTIONS variable in the following format:
 messageid.onr.emojiid.addr.roleid
