@@ -8,7 +8,9 @@ const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
-
+const GUILD_ID = process.env.GUILD_ID;
+const DM_FORWARDING_CHANNEL = process.env.FORWARD_DMS_TO_CHANNEL;
+const DM_CONTROL_CHANNEL = process.env.DM_CONTROL_CHANNEL;
 const ROLE_REACTIONS = process.env.ROLE_REACTIONS.split(",");
 var ROLE_REACTIONS_MSGID_LIST = [];
 var ROLE_REACTIONS_EMOJIID_LIST = [];
@@ -38,12 +40,28 @@ client.on('messageReactionRemove', (reaction, user) => {
     }
 });
 client.on('message', msg => {
-    switch(msg.content) {
-        case "!ping":
-            msg.reply("Pong!");
-            break;
-        case "!pong":
-            msg.reply("Ping!");
-            break;
+    if(msg.channel.type === "dm" && msg.author.id !== client.user.id) {
+        client.guilds.cache.find(guild => guild.id === GUILD_ID).channels.cache.find(channel => channel.id === DM_FORWARDING_CHANNEL).send("`" + msg.author.tag + ":` " + msg.content);
+    } else if (msg.content.startsWith("!dm ") && msg.channel.id === DM_CONTROL_CHANNEL){
+        const args = msg.content.slice("!dm ".length);
+        var mention = args.split(" ")[0];
+        if (mention.startsWith('<@') && mention.endsWith('>')) {
+            mention = mention.slice(2, -1);
+            if (mention.startsWith('!')) {
+                mention = mention.slice(1);
+            }
+            const user = msg.guild.members.cache.find(member => member.id === mention);
+            user.createDM(true);
+            user.send(args.slice(args.indexOf(" ")));
+        }
+    } else {
+        switch(msg.content) {
+            case "!ping":
+                msg.reply("Pong!");
+                break;
+            case "!pong":
+                msg.reply("Ping!");
+                break;
+        }
     }
 });
