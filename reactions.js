@@ -7,6 +7,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setActivity('my messages. Message for help!', {type: 'WATCHING'});
 });
 const GUILD_ID = process.env.GUILD_ID;
 const DM_FORWARDING_CHANNEL = process.env.FORWARD_DMS_TO_CHANNEL;
