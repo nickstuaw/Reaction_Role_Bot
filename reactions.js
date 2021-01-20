@@ -43,7 +43,7 @@ client.on('messageReactionRemove', (reaction, user) => {
 });
 client.on('message', msg => {
     if(msg.channel.type === "dm" && msg.author.id !== client.user.id) {
-        if (msg.content.toLowerCase().startsWith("!verify ") {  
+        if (msg.content.toLowerCase().startsWith("!verify ")) {  
             client.guilds.cache.find(guild => guild.id === GUILD_ID).channels.cache.find(channel => channel.id === VERIFY_DM_FORWARDING_CHANNEL).send("@" + msg.author.tag + " : " + msg.content);
         } else {
             client.guilds.cache.find(guild => guild.id === GUILD_ID).channels.cache.find(channel => channel.id === DM_FORWARDING_CHANNEL).send("`" + msg.author.tag + ":` " + msg.content);
