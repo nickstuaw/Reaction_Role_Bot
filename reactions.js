@@ -11,6 +11,7 @@ client.on('ready', () => {
 });
 const GUILD_ID = process.env.GUILD_ID;
 const DM_FORWARDING_CHANNEL = process.env.FORWARD_DMS_TO_CHANNEL;
+const VERIFY_DM_FORWARDING_CHANNEL = process.env.VERIFY_FORWARD_DMS_TO_CHANNEL;
 const DM_CONTROL_CHANNEL = process.env.DM_CONTROL_CHANNEL;
 const ROLE_REACTIONS = process.env.ROLE_REACTIONS.split(",");
 var ROLE_REACTIONS_MSGID_LIST = [];
@@ -42,7 +43,11 @@ client.on('messageReactionRemove', (reaction, user) => {
 });
 client.on('message', msg => {
     if(msg.channel.type === "dm" && msg.author.id !== client.user.id) {
-        client.guilds.cache.find(guild => guild.id === GUILD_ID).channels.cache.find(channel => channel.id === DM_FORWARDING_CHANNEL).send("`" + msg.author.tag + ":` " + msg.content);
+        if (msg.content.toLowerCase().startsWith("!verify ") {  
+            client.guilds.cache.find(guild => guild.id === GUILD_ID).channels.cache.find(channel => channel.id === VERIFY_DM_FORWARDING_CHANNEL).send("@" + msg.author.tag + " : " + msg.content);
+        } else {
+            client.guilds.cache.find(guild => guild.id === GUILD_ID).channels.cache.find(channel => channel.id === DM_FORWARDING_CHANNEL).send("`" + msg.author.tag + ":` " + msg.content);
+        }
     } else if (msg.content.startsWith("!dm ") && msg.channel.id === DM_CONTROL_CHANNEL){
         const args = msg.content.slice(4);
         var mention = args.split(" ")[0];
