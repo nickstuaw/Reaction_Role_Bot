@@ -6,4 +6,4 @@ Set up a `.env` file using the link:./.env.sample[`.env.sample`] file.
 
 link:https://github.com/Nebula-O/Reaction_Role_Bot/wiki/Setting-it-up#bot-setup[Full instructions]
 
-link:https://dev.nsgw.xyz/dc[Developer website]
+link:https://nsgw.xyz/[Developer website]
